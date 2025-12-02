@@ -1,246 +1,267 @@
-<p align="center">
-  <img src="docs/banner.png" alt="Anime Recommendation Engine Banner" width="100%">
-</p>
+<p align="center"> <img src="docs/banner.png" alt="Anime Recommendation Engine Banner" width="100%"> </p> <p align="center"> <img src="https://img.shields.io/badge/Project-Anime%20%2F%20Manga%20%2F%20Manhwa%20Recommender-blue?style=for-the-badge"/> <img src="https://img.shields.io/badge/Python-3.10+-yellow?style=for-the-badge"/> <img src="https://img.shields.io/badge/ML-Content--Based-orange?style=for-the-badge"/> <img src="https://img.shields.io/badge/Web-Streamlit-red?style=for-the-badge"/> <img src="https://img.shields.io/github/license/borboranabil/Anime-Multi-Recommendation-Engine?style=for-the-badge"/> </p>
+🎌 Anime • Manga • Manhwa Multi-Recommendation Engine
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Project-Anime%20%2F%20Manga%20%2F%20Manhwa%20Recommender-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Python-3.10+-yellow?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/ML-Content--Based-orange?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/license/borboranabil/Anime-Multi-Recommendation-Engine?style=for-the-badge"/>
-</p>
+A content-based AI recommendation system that can suggest similar titles from:
 
-# 🎌 Anime • Manga • Manhwa Multi-Recommendation Engine
+📺 Anime
 
-A **content-based AI recommendation system** that can suggest similar titles from:
+📚 Manga
 
-- 📺 **Anime**
-- 📚 **Manga**
-- 📙 **Manhwa (Korean Webtoons)**
+📙 Manhwa (Korean Webtoons)
 
-The model uses **TF-IDF Vectorization** + **Cosine Similarity** on:
-- titles  
-- genres  
-- descriptions  
+Supports two recommendation engines:
 
-This allows the engine to detect similarity between different works based only on their **content**, without ratings or user data.
+⚡ TF-IDF (fast keyword-based)
 
----
+🧠 Sentence-BERT (semantic meaning-based)
 
-## 🧭 Table of Contents
+Also includes a fully interactive Streamlit Web App.
 
-1. [Overview](#-overview)  
-2. [Features](#-features)  
-3. [Supported Datasets](#-supported-datasets)  
-4. [Tech Stack](#-tech-stack)  
-5. [Project Structure](#-project-structure)  
-6. [How It Works](#-how-it-works)  
-7. [How to Run](#-how-to-run)  
-8. [Example Session](#-example-session)  
-9. [Roadmap](#-roadmap)  
-10. [License](#-license)  
-11. [Acknowledgements](#-acknowledgements)
+🧭 Table of Contents
 
----
+Overview
 
-## 📌 Overview
+Features
 
-This project implements a **multi-media content recommendation engine** as part of an AI/ML learning project.  
-It supports three categories:
+Supported Datasets
 
-- **Anime**
-- **Manga**
-- **Manhwa**
+Tech Stack
 
-The system recommends similar titles based on:
-- Title keywords  
-- Genre overlap  
-- Plot description similarity  
+Project Structure
 
-It is fast ➝ simple ➝ expandable ➝ ideal for ML beginners and anime fans.
+How It Works
 
----
+Web App (Streamlit UI)
 
-## ⭐ Features
+How to Run
 
-- 🔍 **Content-Based Recommendations** using TF-IDF + cosine similarity  
-- 📚 **Supports Anime, Manga, and Manhwa**  
-- ⚡ **Fast lookup** thanks to precomputed matrices  
-- 🧠 **Cleans & merges text fields** automatically  
-- 🖥️ **Interactive CLI menu**  
-- 🧩 **Modular design** (easy to extend or add new datasets)  
-- 📂 **CSV-based datasets** for easy editing  
+Example Session
 
----
+Roadmap
 
-## 📂 Supported Datasets
+License
 
-All datasets are in `data/`:
+Acknowledgements
 
-| Type      | File              | Items |
-|----------|-------------------|-------|
-| Anime    | `anime.csv`       | 35+   |
-| Manga    | `manga.csv`       | 35+   |
-| Manhwa   | `manhwa.csv`      | 35+   |
+📌 Overview
 
-Dataset schema:
+This project implements a multi-media recommendation engine supporting:
+
+Anime
+
+Manga
+
+Manhwa
+
+Recommendations are generated using:
+
+title
+
+genres
+
+plot descriptions
+
+The system works without user ratings — it is purely content-based.
+
+⭐ Features
+🔍 Recommendation Engines
+
+TF-IDF + Cosine Similarity (fast, keyword-based)
+
+Sentence-BERT semantic embeddings (understands meaning)
+
+📚 Media Types Supported
+
+Anime
+
+Manga
+
+Manhwa
+
+🧠 Smart Text Processing
+
+Cleans and merges description fields
+
+Handles missing values automatically
+
+🖥️ Two User Interfaces
+
+Interactive CLI
+
+Modern Streamlit Web App
+
+🧩 Modular & Extensible
+
+Add new datasets easily
+
+Replace algorithms
+
+Extend into collaborative filtering futures
+
+📂 Supported Datasets
+
+All datasets in /data/:
+
+Type	File	Items
+Anime	anime.csv	35+
+Manga	manga.csv	35+
+Manhwa	manhwa.csv	35+
+
+Schema:
 
 item_id, title, genres, description
 
-yaml
-Copy code
+🛠 Tech Stack
+Language
 
-Each row contains:
+Python 3.10+
 
-- **item_id** – unique numeric ID  
-- **title** – name of the work  
-- **genres** – pipe-separated tags (Action|Fantasy)  
-- **description** – short plot summary  
+Libraries
 
----
+pandas
 
-## 🛠 Tech Stack
+scikit-learn
 
-**Language:**  
-- Python 3.x  
+Sentence-Transformers
 
-**Libraries:**  
-- pandas  
-- scikit-learn  
-  - `TfidfVectorizer()`  
-  - `linear_kernel()`  
+Streamlit
 
-**Environment:**  
-- VS Code / any IDE  
-- Git Bash / Terminal  
+numpy
 
----
+Environment
 
-## 📁 Project Structure
+VS Code
 
+Git Bash / Terminal
+
+📁 Project Structure
 Anime-Multi-Recommendation-Engine/
 │
 ├── data/
-│ ├── anime.csv
-│ ├── manga.csv
-│ └── manhwa.csv
+│   ├── anime.csv
+│   ├── manga.csv
+│   └── manhwa.csv
 │
 ├── docs/
-│ ├── ARCHITECTURE.md
-│ ├── QUICKSTART.md
-│ └── banner.png
+│   ├── ARCHITECTURE.md
+│   ├── QUICKSTART.md
+│   ├── webapp_screenshot.png
+│   └── banner.png
 │
-├── main.py
-├── recommender.py
+├── app.py                # Streamlit Web UI
+├── main.py               # CLI Interface
+├── recommender.py        # TF-IDF + BERT logic
 ├── requirements.txt
 ├── README.md
 ├── LICENSE
 └── .gitignore
 
-yaml
-Copy code
-
----
-
-## 🔬 How It Works
-
-### **1️⃣ Mode selection (main.py)**
-The user chooses:
-
-1 → Anime
-2 → Manga
-3 → Manhwa
-
-bash
-Copy code
-
-### **2️⃣ Load dataset**
-Loads the correct CSV and creates a new text field:
-
-```python
+🔬 How It Works
+1️⃣ Build the content field
 df["content"] = df["title"] + " " + df["genres"] + " " + df["description"]
-3️⃣ Vectorization
-Build TF-IDF matrix:
 
-python
-Copy code
+2️⃣ TF-IDF Vectorization
 TfidfVectorizer(stop_words="english")
-4️⃣ Compute similarity
-Using cosine similarity:
 
-python
-Copy code
+3️⃣ Semantic Embeddings (Sentence-BERT)
+SentenceTransformer("all-MiniLM-L6-v2")
+
+4️⃣ Cosine Similarity
 linear_kernel(tfidf_matrix, tfidf_matrix)
-5️⃣ Display recommendations
-Sorted by similarity score.
+
+🌐 Web App (Streamlit UI)
+
+The project includes a fully interactive web app:
+
+Features:
+
+Dataset selector: Anime / Manga / Manhwa
+
+Engine selector: TF-IDF or Sentence-BERT
+
+Slider for number of recommendations
+
+Search by item_id or title
+
+Clean table view of items
+
+Run the Web App:
+streamlit run app.py
+
+
+After running, open:
+
+📌 http://localhost:8501
 
 🔧 How to Run
-1️⃣ Install dependencies
-bash
-Copy code
+1️⃣ Install requirements
 pip install -r requirements.txt
-2️⃣ Run the engine
-bash
-Copy code
+
+2️⃣ Run CLI mode
 python main.py
-3️⃣ Choose a category and get recommendations
-🧪 Example Session
-yaml
-Copy code
+
+3️⃣ Run Web App
+streamlit run app.py
+
+🧪 Example Session (CLI)
 === Multi-Media Recommendation Engine ===
 Select mode:
   1) Anime
   2) Manga
   3) Manhwa
-Enter choice: 1
 
 Loaded dataset: anime.csv
 
 Available titles:
-  1: Attack on Titan
-  2: Naruto
-  3: One Piece
-  ...
+1: Attack on Titan
+2: Naruto
+3: One Piece
+...
 
 Enter item_id: 1
 
 Recommendations for: Attack on Titan
-------------------------------------------------
+-----------------------------------------
 9   Tokyo Ghoul
 10  Tokyo Revengers
 5   Demon Slayer
 6   Jujutsu Kaisen
-34  Idaten Deities Know Only Peace
+34  Idaten Deities
+
 🚀 Roadmap
+✅ Completed
+
+✔ Streamlit Web App
+✔ Sentence-BERT semantic engine
+✔ Multi-dataset support
+✔ Clean UI + Banner + Docs
+
 🔧 Short-Term
-Add 100+ entries per dataset
 
-Clean genre tags
-
-Add option for top-N recommendations
+⬜ Expand datasets to 150+ each
+⬜ Add genre normalization
+⬜ Add CSV import UI
 
 ⚙️ Medium-Term
-Integrate AniList / MAL / Webtoon APIs
 
-Add title-based search
+⬜ Integrate AniList / MAL / Webtoon APIs
+⬜ Add title-based global search
 
 🧠 Long-Term
-Build a Streamlit web UI
 
-Add collaborative filtering
-
-Use BERT / Sentence Transformers for semantic similarity
-
-Deploy online
+⬜ Build full website or mobile app
+⬜ Deploy on cloud (Vercel / Railway)
+⬜ Add collaborative filtering
+⬜ Use GPT embeddings for similarity
 
 📝 License
+
 Distributed under the MIT License.
-See LICENSE for details.
 
 🙌 Acknowledgements
-Built as part of an AI/ML learning project
 
-Inspired by modern recommendation systems
+Built as an AI/ML learning project
 
-Uses Python’s scientific ecosystem
+Inspired by modern recommendation engines
 
+Uses open-source Python libraries
