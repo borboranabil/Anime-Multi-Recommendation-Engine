@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import linear_kernel
 def load_items(csv_path: Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
 
-    # Fill missing values
+    # Fill missing values safely
     df["genres"] = df.get("genres", "").fillna("")
     df["description"] = df.get("description", "").fillna("")
     df["title"] = df.get("title", "").fillna("")

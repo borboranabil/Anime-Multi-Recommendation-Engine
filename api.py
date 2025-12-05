@@ -152,11 +152,13 @@ def get_recommendations(
         )
 
     # --- Case 2: Not found locally ---
-    # If smart search is off, just say "not found"
     if not use_smart_search:
         raise HTTPException(
             status_code=404,
-            detail="Title not found in local dataset. Enable Semantic Search for web lookup.",
+            detail=(
+                "Title not found in local dataset. "
+                "Enable Semantic Search for web lookup."
+            ),
         )
 
     # Smart search ON → try live web search via Jikan
@@ -164,7 +166,7 @@ def get_recommendations(
     if not live_data:
         raise HTTPException(status_code=404, detail="Not found via web search.")
 
-    # 🔄 CHANGE: show the user's query, not Jikan's title
+    # Show the user's query in the UI, not Jikan's internal title
     base_title = f"{query} (Web Search)"
     engine = "TF-IDF (Live Web Mode)"
 
