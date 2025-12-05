@@ -294,7 +294,7 @@ Business integrations
 
 Contact for commercial licensing:
 
-your-email-here
+borboranabil.dev@outlook.com
 
 🙌 Credits
 Built with ❤️ by borboranabil
