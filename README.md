@@ -1,7 +1,7 @@
 # Otaku Recommender - Full-Stack AI Engine
 
 > A next-gen recommendation system for **Anime, Manga, and Manhwa**.  
-> Powered by **TF-IDF + Live Web Search (Jikan API)**, **FastAPI**, and **React**.
+> Powered by **TF-IDF + Semantic Text Search + Live Web Mode (Jikan API)** using **FastAPI** and **React**.
 
 [Live Demo (Frontend - Vercel)](https://anime-multi-recommendation-engine.vercel.app)  
 [Backend API (Render)](https://anime-recommender-i8w3.onrender.com)
@@ -10,35 +10,61 @@
 
 ## ✨ What makes this special?
 
-Unlike standard recommendation engines that only suggest items from a fixed list, **Otaku Recommender is “alive”**:
+Unlike traditional recommendation systems, **Otaku Recommender is “alive”** — it understands:
+
+✔ Title-based searches  
+✔ Natural-language semantic searches (“samurai revenge tragedy”)  
+✔ Unknown titles using live internet fallback  
 
 ### 1️⃣ Smart TF-IDF Brain  
-Uses `scikit-learn` TF-IDF over titles + genres + descriptions to find anime with similar *vibes*, not just exact words.
+Uses TF-IDF over `title + genres + description` to compute similarity by *vibe*, not just keywords.
 
-### 2️⃣ Live Internet Fallback (Jikan API)  
-If you search for something that isn’t in the local CSVs (e.g., **“sad samurai revenge”**, **“dark psychological thriller”**, etc.), the backend:
+### 2️⃣ Semantic Text Mode (NEW)  
+If the user types a **descriptive prompt**:
 
-- queries the **Jikan API** (MyAnimeList),
-- builds a rich text description,
-- runs TF-IDF similarity against your local universe.
+sad story about a pianist
+dark psychological thriller
+samurai revenge tragedy
+wholesome romance with comedy
 
-This gives “semantic-like” recommendations **without heavy GPU models**.
+yaml
+Copy code
 
-### 3️⃣ Multi-Media Support  
-Works for **Anime**, **Manga**, and **Manhwa**, each with separate datasets.
+The engine treats the text as a **semantic description** and performs TF-IDF similarity on the entire dataset.
 
-### 4️⃣ Infinite Discovery UI  
-Click any recommendation card → instantly start a new search based on that title.
+⚡ No API needed  
+⚡ Works for ANY descriptive text  
+⚡ Incredibly light and fast  
 
-### 5️⃣ Trailer Integration  
-Each card has a **YouTube trailer** button.
+### 3️⃣ Live Web Fallback (Jikan API)  
+If the query:
+
+- does **not** exist in the dataset  
+- AND looks like a title  
+- AND semantic mode is ON  
+
+The backend fetches:
+
+- title  
+- genres  
+- synopsis  
+
+from **MyAnimeList (via Jikan API)** and uses it to build similarity recommendations.
+
+### 4️⃣ Multi-Media Support  
+Separate universes for **Anime**, **Manga**, and **Manhwa**.
+
+### 5️⃣ Infinite Discovery UI  
+Click any card → instantly pivot recommendations to that title.
+
+### 6️⃣ Trailer Button  
+Jump straight to YouTube trailers.
 
 ---
 
 # 🌟 Showcase — Smart Semantic Search in Action
 
-The engine supports natural language queries, title-based search, and live web fallback.  
-Here are real examples:
+Here are real screenshots from the deployed system:
 
 ---
 
@@ -50,66 +76,62 @@ Here are real examples:
 
 Features:
 
-- Anime / Manga / Manhwa media switch  
-- Keyword vs Semantic mode  
-- Vibe-based searching  
-- Fully responsive dark UI  
+- Anime / Manga / Manhwa selector  
+- Keyword vs Semantic toggle  
+- Smooth animations  
+- Fully responsive dark mode UI  
 
 ---
 
-## 🗡️ 2. Example Query — *“samurai revenge tragedy”* (Semantic Mode)
+## 🗡️ 2. Semantic Query — *“samurai revenge tragedy”*
 
 <p align="center">
   <img src="docs/screenshot-samurai.png" width="85%" />
 </p>
 
-The system identifies themes like:
+Why this works:
 
-- Samurai  
-- Revenge  
-- Tragedy  
-- Historical conflict  
-
-Even though the dataset does NOT contain these exact words, it finds conceptual matches using enhanced TF-IDF.
+- Identifies concepts like **samurai**, **revenge**, **tragedy**, **violence**, **historical tone**  
+- Returns anime with similar emotional and thematic patterns  
+- No embeddings, no GPU — just smart TF-IDF content matching
 
 ---
 
-## 🧠 3. Example Query — *“dark psychological thriller”* (Semantic Mode)
+## 🧠 3. Semantic Query — *“dark psychological thriller”*
 
 <p align="center">
   <img src="docs/screenshot-psychological.png" width="85%" />
 </p>
 
-Matches:
+Matches include:
 
 - Psychological tension  
-- Thriller pacing  
-- Dark emotional tone  
-- Mature themes  
+- Thriller structure  
+- Dark themes  
+- Mind games / horror elements  
 
-This is the strongest demonstration of the “semantic-like” mode without BERT.
+This perfectly demonstrates the accuracy of TF-IDF semantic searching.
 
 ---
 
-## 🧠 Tech Stack
+# 🧠 Tech Stack
 
-### Frontend (The Face)
-- **React (Vite)**
-- **Tailwind CSS** (dark mode aesthetic)
-- **Framer Motion** for smooth animations
-- **Lucide Icons**
-- **Vercel Hosting**
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- Framer Motion
+- Lucide Icons
+- Hosted on **Vercel**
 
-### Backend (The Brain)
-- **FastAPI (Python)**
-- **TF-IDF vectorization** (scikit-learn)
-- **Cosine similarity engine**
-- **Pandas + NumPy**
-- **Jikan API** for live fallback search
-- **Render Hosting**
+### Backend
+- Python + FastAPI
+- TF-IDF vectorization (scikit-learn)
+- Cosine similarity engine
+- Jikan API for fallback search
+- Hosted on **Render**
 
-> ⚠️ This deployed version **does NOT use Sentence-BERT**  
-> It is optimized for **lightweight TF-IDF + external descriptions** to run reliably on Render free tier.
+> ⚠️ This version does **NOT** use Sentence-BERT.  
+> It is optimized for TF-IDF + smart query handling to run on low-RAM hosting (Render free tier).
 
 ---
 
@@ -118,16 +140,13 @@ This is the strongest demonstration of the “semantic-like” mode without BERT
 ## 1️⃣ Backend Setup (Python)
 
 ```bash
-# Create virtual environment
 python -m venv .venv
-source .venv/bin/activate    # Windows: .venv\Scripts\activate
+source .venv/bin/activate         # Windows: .venv\Scripts\activate
 
-# Install dependencies
 pip install -r requirements.txt
 
-# Start API
 uvicorn api:app --reload
-Backend will be available at:
+Backend runs at:
 
 cpp
 Copy code
@@ -136,7 +155,7 @@ Useful Endpoints
 Endpoint	Description
 /health	Health check
 /recommend	Main recommendation endpoint
-/docs	Swagger UI
+/docs	Swagger docs
 
 Example:
 
@@ -147,71 +166,92 @@ curl "http://127.0.0.1:8000/recommend?media_type=anime&query=naruto&topn=5&use_s
 bash
 Copy code
 cd frontend
-
 npm install
 npm run dev
-Frontend runs at:
+Frontend:
 
 arduino
 Copy code
 http://localhost:5173
-To use local backend, update App.jsx:
+To use local backend, edit:
 
 js
 Copy code
 const BACKEND_URL = "http://127.0.0.1:8000";
 🧬 Project Structure
-powershell
+arduino
 Copy code
-Anime-Multi-Recommendation-Engine/
-├── api.py                 # FastAPI server
-├── recommender.py         # TF-IDF logic + helpers
-├── data/                  # Anime/Manga/Manhwa CSV files
+Otaku-Recommender/
+├── api.py                 
+├── recommender.py         
+├── data/                  
 ├── frontend/
 │   ├── src/
-│   │   ├── App.jsx        # UI logic
+│   │   ├── App.jsx
 │   │   └── main.jsx
 │   └── tailwind.config.js
-├── docs/                  # Screenshots for README
-└── README.md              # You are here
-🔍 Recommendation Logic (Current Version)
-✔ Local Title Search
-Try exact or substring match in CSV
+├── docs/                  # screenshots for README
+└── README.md
+🔍 Recommendation Logic (Final Version)
+✔ 1. Local Title Match
+Exact or substring match in CSV
 
-If found → TF-IDF similarity
+Uses TF-IDF similarity
 
 Label: TF-IDF (Local Title Match)
 
-✔ Semantic Query Mode
-If title NOT found and use_smart_search=true:
+✔ 2. Semantic Text Mode (Descriptive Prompts)
+Triggered when:
 
-Query Jikan for the term
+Query is long / descriptive
 
-Build synthetic “content” string
+AND not a known title
 
-Run TF-IDF similarity
+Engine:
 
-Label:
+Treats the prompt as a semantic description
 
-scss
-Copy code
-TF-IDF (Live Web Mode)
-✔ Smart Mode OFF
-If title not found and semantic mode is off → return 404 message.
+Computes TF-IDF similarity
+
+No API needed
+
+Label: TF-IDF (Semantic Text Mode)
+
+✔ 3. Live Web Mode (Unknown Titles)
+Triggered when:
+
+Query looks like a title
+
+AND not found in local CSV
+
+AND semantic mode ON
+
+Engine:
+
+Fetches plot + genres from Jikan
+
+Builds synthetic content block
+
+TF-IDF similarity
+
+Label: TF-IDF (Live Web Mode)
+
+✔ 4. Smart Mode OFF
+If semantic mode = OFF and title not found → return a clear 404 message.
 
 🛣 Roadmap
-User accounts + watchlists
+User accounts + favourites
 
-Rating system + collaborative filtering
+Collaborative filtering
 
-Better intent detection
+Mood-based search (happy, dark, wholesome)
 
-Mood-based recommendation mode
+Badge-based genre clustering
 
-Full anime detail pages per title
+Anime detail pages
 
 📜 License
-MIT License — Free for personal and commercial use.
+MIT License — free for personal and commercial use.
 
 🙌 Credits
 Built with ❤️ by borboranabil
