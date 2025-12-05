@@ -1,3 +1,29 @@
+<p align="center">
+  <img src="docs/banner.png" alt="Otaku Recommender Banner" width="100%">
+</p>
+
+<h1 align="center">Otaku Recommender — Full-Stack AI Engine</h1>
+
+<p align="center">
+  AI-powered recommendations for Anime, Manga, and Manhwa  
+  <br>
+  Semantic Search • TF-IDF • Live Web Mode • FastAPI • React
+</p>
+
+<p align="center">
+
+  <!-- Status Badges -->
+  <img src="https://img.shields.io/badge/Frontend-Vercel-black?style=for-the-badge&logo=vercel" />
+  <img src="https://img.shields.io/badge/Backend-Render-blue?style=for-the-badge&logo=render" />
+  <img src="https://img.shields.io/badge/FastAPI-0.104.1-009485?style=for-the-badge&logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/TF--IDF-ML%20Engine-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
+
+</p>
+
+---
+
 # Otaku Recommender - Full-Stack AI Engine
 
 > A next-gen recommendation system for **Anime, Manga, and Manhwa**.  
