@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sparkles, BookOpen, Tv, Zap, Youtube } from "lucide-react"; // <--- Added Youtube Icon
+import { Search, Sparkles, BookOpen, Tv, Zap, Youtube } from "lucide-react";
 
 export default function App() {
   const [query, setQuery] = useState("");
   const [mediaType, setMediaType] = useState("anime");
-  const [smartSearch, setSmartSearch] = useState(false); // kept for UI only
+  const [smartSearch, setSmartSearch] = useState(false);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,25 +19,39 @@ export default function App() {
     setResults(null);
 
     try {
-      // Use your Render backend URL (no more localhost, no use_smart_search)
       const url = `https://anime-recommender-i8w3.onrender.com/recommend?media_type=${mediaType}&query=${encodeURIComponent(
         searchTerm
-      )}&topn=5`;
+      )}&topn=5&use_smart_search=${smartSearch}`;
 
       const res = await fetch(url);
-      if (!res.ok) throw new Error("Backend error");
+
+      // 404 = title not found (either locally or via web)
+      if (res.status === 404) {
+        const data = await res.json().catch(() => ({}));
+        alert(
+          data.detail ||
+            "No matching title found. Try another name or turn on Semantic Search."
+        );
+        setLoading(false);
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error("Backend error");
+      }
+
       const data = await res.json();
       setResults(data);
     } catch (err) {
       console.error(err);
       alert("Failed to connect to backend. Please try again in a moment.");
     }
+
     setLoading(false);
   };
 
-  // Helper to open YouTube
   const openTrailer = (e, title) => {
-    e.stopPropagation(); // <--- STOP the click from bubbling up to the card search
+    e.stopPropagation();
     window.open(
       `https://www.youtube.com/results?search_query=${title} ${mediaType} trailer`,
       "_blank"
@@ -115,8 +129,8 @@ export default function App() {
                 </span>
                 <span className="text-xs text-gray-500">
                   {smartSearch
-                    ? "Understands meaning & context (Slower)"
-                    : "Matches exact words & titles (Instant)"}
+                    ? "Uses live web data if title not in database"
+                    : "Uses only local titles (faster)"}
                 </span>
               </div>
             </div>
@@ -210,7 +224,6 @@ export default function App() {
                           </div>
                         </div>
 
-                        {/* TRAILER BUTTON */}
                         <div className="mt-4 flex justify-end">
                           <button
                             onClick={(e) => openTrailer(e, rec.title)}
